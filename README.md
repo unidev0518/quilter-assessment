@@ -1,15 +1,19 @@
-# PCB Netlist Visualizer Validator
+# Quilter Assessment: PCB Netlist Visualizer & Validator
 
-A full-stack web application for visualizing and validating PCB (Printed Circuit Board) netlists. This tool helps engineers and designers to visualize connections between components, validate their designs against common PCB design rules, and manage their netlist projects.
+A full-stack web application for visualizing and validating PCB (Printed Circuit Board) netlists. This tool helps engineers and designers visualize connections between components, validate their designs against common PCB design rules, and manage netlist projects.
+
+---
 
 ## Features
 
-- **Interactive Visualization**: Visualize PCB netlists using D3.js with interactive graph components
-- **Validation Engine**: Validate netlists against common PCB design rules
-- **User Authentication**: Secure user accounts with JWT authentication
-- **Netlist Management**: Dashboard to manage and organize multiple netlists
-- **Data Persistence**: MongoDB integration for storing netlists and user data
-- **Responsive Design**: Works on desktop and mobile devices
+- **Interactive Visualization**: Visualize PCB netlists using D3.js with interactive, circuit-inspired graphics.
+- **Validation Engine**: Validate netlists against common PCB design rules.
+- **User Authentication**: Secure user accounts with JWT authentication.
+- **Netlist Management**: Dashboard to manage and organize multiple netlists.
+- **Data Persistence**: MongoDB integration for storing netlists and user data.
+- **Responsive Design**: Works on desktop and mobile devices.
+
+---
 
 ## Tech Stack
 
@@ -29,63 +33,51 @@ A full-stack web application for visualizing and validating PCB (Printed Circuit
 
 - Docker and Docker Compose for containerization
 - Nginx for serving the client application
-- Development and production configurations
 
-### Manual Setup
-
-1. Clone the repository:
-
-   ```bash
-   git clone <repository-url>
-   cd PCB-Netlist-Visualizer-Validator
-   ```
-
-2. For development:
-
-   ```bash
-   docker-compose -f docker-compose.dev.yml up -d
-   ```
-
-3. For production:
-   ```bash
-   docker-compose -f docker-compose.yml up -d
-   ```
+---
 
 ## Project Structure
 
 ```
-PCB-Netlist-Visualizer-Validator/
+quilter-assessment/
 ├── client/                 # React frontend
 │   ├── public/             # Static files
 │   ├── src/                # Source code
 │   │   ├── components/     # React components
+│   │   ├── context/        # React context providers
+│   │   ├── hooks/          # Custom React hooks
 │   │   ├── pages/          # Page components
-│   │   ├── services/       # API services
-│   │   └── utils/          # Utility functions
+│   │   ├── types/          # TypeScript types
+│   │   └── assets/         # Images and static assets
 │   ├── Dockerfile          # Production Docker config
-│   └── Dockerfile.dev      # Development Docker config
+│   ├── Dockerfile.prod     # Production Docker config
+│   └── nginx.conf          # Nginx config for production
 ├── server/                 # Node.js backend
 │   ├── src/                # Source code
 │   │   ├── controllers/    # API controllers
-│   │   ├── models/         # MongoDB models
+│   │   ├── middleware/     # Express middleware
+│   │   ├── models/         # Mongoose models
 │   │   ├── routes/         # API routes
-│   │   └── utils/          # Utility functions
+│   │   └── services/       # Business logic/services
 │   ├── Dockerfile          # Production Docker config
-│   └── Dockerfile.dev      # Development Docker config
-├── docker-compose.yml      # Production Docker Compose
-├── docker-compose.dev.yml  # Development Docker Compose
-├── docker-start.bat        # Script to start containers
-├── docker-stop.bat         # Script to stop containers
-└── docker-cleanup.bat      # Script to clean up Docker resources
+│   ├── Dockerfile.prod     # Production Docker config
+├── docker-compose.yml      # Docker Compose for development
+├── docker-compose.prod.yml # Docker Compose for production
+├── sample-netlist.json     # Example netlist file
+└── README.md               # Project documentation
 ```
+
+---
 
 ## Usage
 
-1. **Register/Login**: Create an account or log in to access the dashboard
-2. **Upload Netlist**: Upload a JSON netlist file with components, pins, and connections
-3. **Visualize**: View an interactive graph representation of your netlist
-4. **Validate**: Run validation checks against common PCB design rules
-5. **Manage**: Save, edit, and organize your netlists
+1. **Register/Login**: Create an account or log in to access the dashboard.
+2. **Upload Netlist**: Upload a JSON netlist file with components, pins, and connections.
+3. **Visualize**: View an interactive graph representation of your netlist.
+4. **Validate**: Run validation checks against common PCB design rules.
+5. **Manage**: Save, edit, and organize your netlists.
+
+---
 
 ## Netlist Format
 
@@ -96,41 +88,41 @@ The application accepts JSON netlists in the following format:
   "components": [
     {
       "id": "C1",
+      "name": "Capacitor 1",
       "type": "capacitor",
-      "pins": ["1", "2"]
-    },
-    {
-      "id": "R1",
-      "type": "resistor",
-      "pins": ["1", "2"]
+      "pins": [
+        { "id": "1", "name": "Pin 1", "type": "input" },
+        { "id": "2", "name": "Pin 2", "type": "output" }
+      ]
     }
   ],
-  "connections": [
+  "nets": [
     {
-      "from": { "component": "C1", "pin": "1" },
-      "to": { "component": "R1", "pin": "1" }
+      "id": "N1",
+      "name": "Net 1",
+      "connections": [
+        { "componentId": "C1", "pinId": "1" }
+      ]
     }
   ]
 }
 ```
 
+---
+
 ## Development
 
-### Local Development without Docker
+### Local Development (without Docker)
 
-If you prefer to develop without Docker:
-
-1. Start MongoDB locally or use a cloud instance
-2. Configure the server:
-
+1. **Start MongoDB** locally or use a cloud instance.
+2. **Configure and run the server:**
    ```bash
    cd server
    npm install
-   # Create .env file with MongoDB connection string
+   # Create .env file with MongoDB connection string and JWT secret
    npm run dev
    ```
-
-3. Configure the client:
+3. **Configure and run the client:**
    ```bash
    cd client
    npm install
@@ -139,22 +131,52 @@ If you prefer to develop without Docker:
 
 ### Environment Variables
 
-Create `.env` files in both client and server directories:
+Create `.env` files in both `client` and `server` directories.
 
-**Server (.env)**:
-
+**Server (`server/.env`):**
 ```
-MONGODB_URI=mongodb://username:password@mongodb:27017/netlist
+MONGO_URI=mongodb://localhost:27017/pcb-netlist-visualizer-validator
 JWT_SECRET=your_jwt_secret
 PORT=5000
 ```
 
-**Client (.env)**:
-
+**Client (`client/.env`):**
 ```
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-## Deployment to AWS
+---
 
-For detailed instructions on deploying to AWS, refer to the AWS deployment guide included in the project.
+## Dockerized Development
+
+1. **Build and start all services:**
+   ```bash
+   docker-compose up --build
+   ```
+2. The client will be available at [http://localhost:3000](http://localhost:3000)  
+   The server API will be available at [http://localhost:5000/api](http://localhost:5000/api)
+
+### Production
+
+1. **Build and start production containers:**
+   ```bash
+   docker-compose -f docker-compose.prod.yml up --build
+   ```
+
+---
+
+## Sample Data
+
+A sample netlist is provided in `sample-netlist.json` for testing and demonstration.
+
+---
+
+## License
+
+This project is for assessment and educational purposes.
+
+---
+
+## Contact
+
+For questions or feedback, please contact the project maintainer.

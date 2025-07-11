@@ -5,6 +5,7 @@ import path from 'path';
 import cors from 'cors';
 
 import authRoutes from './routes/auth';
+import healthRoutes from './routes/health';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ mongoose.connect(MONGO_URI)
   });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/health', healthRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../../client/build')));

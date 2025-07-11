@@ -1,0 +1,78 @@
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node.js dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Dependency lock files (optional, if you want to ignore them)
+# yarn.lock
+# pnpm-lock.yaml
+
+# Build output
+dist/
+build/
+out/
+bin/
+client/build/
+client/dist/
+server/build/
+server/dist/
+
+# Runtime files
+*.log
+*.tmp
+
+# Environment variables and sensitive data
+.env
+.env.*
+client/.env
+server/.env
+
+# IDE/editor config
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Coverage reports
+coverage/
+client/coverage/
+server/coverage/
+
+# Miscellaneous
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+client/package-lock.json
+server/package-lock.json
+
+# Docker
+*.local
+docker-compose.override.yml
+
+# Ignore test output
+*.test.*
+*.spec.*
+
+# Ignore sample data
+sample-netlist.json
+
+# Ignore public build artifacts
+client/public/*.map
+
+# Ignore all markdown except README
+*.md
+!README.md

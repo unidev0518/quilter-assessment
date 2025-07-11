@@ -1,0 +1,152 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f9fa;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+/* Landing page */
+.landing {
+  position: relative;
+  /* Dark blue-green gradient background */
+  background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+  height: calc(100vh - 72px);
+  overflow: hidden;
+}
+
+.landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* SVG circuit pattern as a data URI */
+  background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="29" width="2" height="60" fill="%2338ef7d"/><rect y="29" width="60" height="2" fill="%2338ef7d"/><circle cx="30" cy="30" r="6" stroke="%2300d2ff" stroke-width="2" fill="none"/><circle cx="30" cy="30" r="2" fill="%2300d2ff"/></svg>');
+  opacity: 0.15;
+  background-size: 60px 60px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  width: 100%;
+}
+
+.landing-inner {
+  color: #fff;
+  height: 100%;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background: rgba(20, 30, 40, 0.7);
+  border-radius: 1rem;
+  backdrop-filter: blur(2px);
+  padding: 2rem;
+}
+
+/* Auth forms */
+.login-form,
+.register-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 0.3rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Dashboard */
+.dashboard {
+  padding: 2rem 0;
+}
+
+/* Netlist visualization */
+.netlist-visualization {
+  width: 100%;
+  height: 600px;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  background-color: #fff;
+}
+
+.visualization-container {
+  overflow: auto;
+}
+
+/* D3 visualization styles */
+.links line {
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.nodes text {
+  font-size: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .landing-inner {
+    width: 90%;
+  }
+  
+  .netlist-visualization {
+    height: 400px;
+  }
+}
+
+/* Utility classes */
+.x-large {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.my-1 {
+  margin: 1rem 0;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.text-primary {
+  color: #007bff;
+}

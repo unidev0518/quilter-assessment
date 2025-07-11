@@ -6,6 +6,7 @@ import cors from 'cors';
 
 import authRoutes from './routes/auth';
 import healthRoutes from './routes/health';
+import netlistRoutes from './routes/netlist';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ mongoose.connect(MONGO_URI)
 
 app.use('/api/auth', authRoutes);
 app.use('/api/health', healthRoutes);
+app.use('/api/netlists', netlistRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../../client/build')));
